@@ -1,24 +1,28 @@
-public class Solution {
+class Solution {
     public int bestClosingTime(String customers) {
-        char[] customersPresent = customers.toCharArray();
-
-
-        int currentMaxScore = 0;
-        int maxScoreHour = 0;
-        int globalMaxCount = 0;
-
-        for (int i = 1; i < customersPresent.length + 1; i++) {
-            if(customersPresent[i - 1] == 'Y'){
-                currentMaxScore++;
-                if(currentMaxScore > globalMaxCount){
-                    globalMaxCount = currentMaxScore;
-                    maxScoreHour = i;
-                }
-            }else {
-                currentMaxScore--;
+        int n = customers.length();
+        int y = 0;
+        for (char ch : customers.toCharArray()) {
+            if (ch == 'Y') {
+                y++;
+            }
+        }
+        int res = 0;
+        int min = y;
+        int cur = y;
+        for (int i = 0; i < n; i++) {
+            char ch = customers.charAt(i);
+            if (ch == 'Y') {
+                cur--;
+            } else {
+                cur++;
+            }
+            if (cur < min) {
+                min = cur;
+                res = i + 1;
             }
         }
 
-        return maxScoreHour;
+        return res;
     }
 }
